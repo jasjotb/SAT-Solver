@@ -1,0 +1,58 @@
+Brief Report of our approach
+
+Implementation-:
+a.The first problem of assignment is to solve sudoku pair with some extra constraints.
+  So for this first of all we have identify our variables namely as,
+
+  x(i,j,k) where x is boolean variable representing
+
+  kth number at (i,j) cell of matrix.           such that [1<=k<=size**2]
+  j represents jth column                                 [1<=j<=size**2]
+  i represents ith row,it is to note here it is given in  [1<=i<=2*(size**2)]
+  question that the two sudoku's entries are given just 
+  below the first one, hence is the range of i.
+
+  so constraints-:
+    1. exactly one number in each cell
+    2. unique numbers in each row
+    3. unique numbers in each column, tested seperately for both sudoku.
+    4. unique numbers in each subgrid i.e small box of SIZE=(size x size)
+    5. No two corresponding cell of both sudoku can be same.
+  
+  And for envoking all these constraints we call out for card module of python-sat,
+  which checks all cardinallity constarints effeciently
+  and for displaying this effecient purpose we have also added two files for sudoku_solver.
+  NOTE-:to check effeciency one need to give large input like k=6.
+
+
+b.In the second problem of assignment we have used standard algorithm of sudoku generator.
+
+  ALGORITHM-:First create a well defined sudoku pair starting from empty cells and then store all the id's of all the variables in list, in our Implementation lid.
+  then shuffle the list lid with python shuffle module, so as to get randomize list.
+  then corresponding to each identity store number of well defined solve sudoku(as they can be accessible via their ids) in seperate list name as lnum.
+  Then iterate through list lid and remove that number from list lnum if unique slution continues to exist even on removing that number from sudoku. and if more solution begin to exist on removing that element then put it back, i.e don't remove it from lnum.
+
+  finally we have well defined list lnum with removed element representing as 0.
+  so corresponding to their ids(as store in list lid) store them in seperate list of list, and then finally print them as .csv file if solution exist else print None.
+
+  constraints-: similar to sudoku solver as mentioned above.
+    1. exactly one number in each cell
+    2. unique numbers in each row
+    3. unique numbers in each column, tested seperately for both sudoku.
+    4. unique numbers in each subgrid i.e small box of SIZE=(size x size)
+    5. No two corresponding cell of both sudoku can be same.
+    6. Each time to find more number of sol. only add another clause as negation of original    solution number.
+
+
+    Here also we have envoked pysat.card module.
+
+
+Assumption-:
+  For both parts only assumptions are the one that are standard like constarints in value or range of number as stated above.
+
+
+
+
+Limitation-:
+  Here one major limitation is that of time limit. As value of k increases more and more (exponentially or may be even faster) increment in time.
+  And also as stated we have attach two files for sudoku solver so as to highlight major limitation in most of people approach as manually appending each clause is very ineffecient approach as in that cases time limit exceeds even more faster.
